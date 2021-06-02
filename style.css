@@ -21,13 +21,13 @@ body {
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-.title {
+/* .title {
   position: absolute;
   top: 1.5em;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-family: 'Lucida Console';
-}
+} */
 
 .calculator {
   background: white;
