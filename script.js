@@ -22,26 +22,40 @@ function sendNumberValue(number) {
 
 function addDecimal() {
   // if operator pressed, don't add decimal
-  if(awaitingNextValue) return;
+  if (awaitingNextValue) return;
   // if no decimal, add one
   if (!calculatorDisplay.textContent.includes(".")) {
     calculatorDisplay.textContent = `${calculatorDisplay.textContent}.`;
   }
 }
 
+// calculate object
+const calculate = {
+  "/": (firstNumber, SecondNumber) => firstNumber / SecondNumber,
+  "*": (firstNumber, SecondNumber) => firstNumber * SecondNumber,
+  "+": (firstNumber, SecondNumber) => firstNumber + SecondNumber,
+  "-": (firstNumber, SecondNumber) => firstNumber - SecondNumber,
+  "=": (firstNumber, SecondNumber) => SecondNumber,
+};
+
 function useOperator(operator) {
   const currentValue = Number(calculatorDisplay.textContent);
+  //prevent multiple operators
+  if (operatorValue && awaitingNextValue) {
+    operatorValue = operator;
+    return;
+  }
   // assign firstValue if no value
   if (!firstValue) {
     firstValue = currentValue;
   } else {
-    console.log("currentValue", currentValue);
+    const calculation = calculate[operatorValue](firstValue, currentValue);
+    calculatorDisplay.textContent = calculation;
+    firstValue = calculation;
   }
   // Ready for next value, store operator
   awaitingNextValue = true;
   operatorValue = operator;
-  console.log("firstValue", firstValue);
-  console.log("operator", operatorValue);
 }
 
 // Add Event Listeners for numbers, operators, decimal buttons
